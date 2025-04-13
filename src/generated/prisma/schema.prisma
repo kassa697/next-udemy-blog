@@ -21,7 +21,7 @@ model User {
   name      String
   email     String   @unique
   password  String
-  post      Post[]
+  posts     Post[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
