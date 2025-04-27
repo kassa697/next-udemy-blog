@@ -24,14 +24,14 @@ async function main() {
       posts: {
         create: [
           {
-            title: "first post",
-            content: "this is the first post",
+            title: "初めての投稿",
+            content: "こんにちは、これは最初の投稿です。",
             topImage: dummyImages[0],
             published: true,
           },
           {
-            title: "second post",
-            content: "this is the second post",
+            title: "2回目の投稿",
+            content: "こんにちは、これは2回目の投稿です。",
             topImage: dummyImages[1],
             published: true,
           },
