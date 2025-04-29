@@ -1,5 +1,27 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## My Memo
+
+### RegisterForm.tsx と createUser.ts の処理流れメモ
+
+```mermaid
+flowchart TD
+    A[ユーザーがフォームに入力] --> B[フォーム送信]
+    B --> C[Server Action: createUser実行]
+    C --> D{バリデーション}
+    D -- 失敗 --> E[エラー表示]
+    E --> A
+    D -- 成功 --> F{メールアドレス重複チェック}
+    F -- 重複あり --> G[エラー表示]
+    G --> A
+    F -- 重複なし --> H[パスワードハッシュ化]
+    H --> I[ユーザー作成]
+    I --> J[自動ログイン]
+    J --> K[ダッシュボードへリダイレクト]
+
+
+```
+
 ## Getting Started
 
 First, run the development server:
