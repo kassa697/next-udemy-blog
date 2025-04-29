@@ -21,7 +21,7 @@ export default function PostCard({ post }: PostCardProps) {
           </div>
         )}
         {/* line-clamp-2 -> はみ出したテキストを…と表示 */}
-        <CardHeader className="line-clamp-2">
+        <CardHeader className="line-clamp-2 py-3">
           <CardTitle>{post.title}</CardTitle>
         </CardHeader>
         <CardContent>
