@@ -1,7 +1,7 @@
 import PostCard from "@/components/post/PostCard";
 import { getPosts, searchPosts } from "@/lib/post";
 import React from "react";
-import { Post } from "../types/post";
+import { Post } from "../../types/post";
 
 type SearchParams = {
   search?: string;

@@ -25,10 +25,8 @@ export default function RegisterForm() {
             <Label htmlFor="name">名前</Label>
             <Input id="name" type="text" name="name" required />
             {state.errors.name && (
-              <p className="text-red-500">
-                <p className="text-sm text-red-500">
-                  {state.errors.name.join(",")}
-                </p>
+              <p className="text-sm text-red-500">
+                {state.errors.name.join(",")}
               </p>
             )}
           </div>
@@ -36,10 +34,8 @@ export default function RegisterForm() {
             <Label htmlFor="email">メールアドレス</Label>
             <Input id="email" type="email" name="email" required />
             {state.errors.email && (
-              <p className="text-red-500">
-                <p className="text-sm text-red-500">
-                  {state.errors.email.join(",")}
-                </p>
+              <p className="text-sm text-red-500">
+                {state.errors.email.join(",")}
               </p>
             )}
           </div>
@@ -47,10 +43,8 @@ export default function RegisterForm() {
             <Label htmlFor="password">パスワード</Label>
             <Input id="password" type="password" name="password" required />
             {state.errors.password && (
-              <p className="text-red-500">
-                <p className="text-sm text-red-500">
-                  {state.errors.password.join(",")}
-                </p>
+              <p className="text-sm text-red-500">
+                {state.errors.password.join(",")}
               </p>
             )}
           </div>
@@ -63,10 +57,8 @@ export default function RegisterForm() {
               required
             />
             {state.errors.confirmPassword && (
-              <p className="text-red-500">
-                <p className="text-sm text-red-500">
-                  {state.errors.confirmPassword.join(",")}
-                </p>
+              <p className="text-sm text-red-500">
+                {state.errors.confirmPassword.join(",")}
               </p>
             )}
           </div>

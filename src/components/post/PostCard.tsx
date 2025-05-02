@@ -1,4 +1,4 @@
-import { PostCardProps } from "@/app/types/post";
+import { PostCardProps } from "@/types/post";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";

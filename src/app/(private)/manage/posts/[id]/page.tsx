@@ -1,19 +1,26 @@
-import { getPost } from "@/lib/post";
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
+import { auth } from "@/auth";
+import { getOwnPost } from "@/lib/ownPost";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
 type Params = {
   params: Promise<{ id: string }>;
 };
-export default async function PostPage({ params }: Params) {
+export default async function ShowPage({ params }: Params) {
+  const session = await auth();
+  const userId = session?.user?.id;
+  // セッションが存在しない場合はエラーをスロー
+  if (!session?.user?.email || !userId) {
+    throw new Error("無効なセッションです");
+  }
+
   const { id } = await params;
-  const post = await getPost(id);
+  const post = await getOwnPost(userId, id);
 
   if (!post) {
     notFound();
