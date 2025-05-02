@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "5mb", // 5MBまでのファイルを許可
     },
+    optimizePackageImports: ["highlight.js"],
   },
 };
 
