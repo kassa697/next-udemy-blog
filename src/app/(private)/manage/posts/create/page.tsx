@@ -30,7 +30,9 @@ export default function CreatePage() {
       <h1 className="text-2xl font-bold mb-4">新規記事投稿（Markdown対応）</h1>
       <form action={formAction} className="space-y-4">
         <div>
-          <Label htmlFor="title">タイトル</Label>
+          <Label htmlFor="title" className="py-2">
+            タイトル
+          </Label>
           <Input
             type="text"
             id="title"
@@ -44,7 +46,9 @@ export default function CreatePage() {
           )}
         </div>
         <div>
-          <Label htmlFor="topImage">トップ画像</Label>
+          <Label htmlFor="topImage" className="py-2">
+            トップ画像
+          </Label>
           <Input type="file" id="topImage" accept="image/*" name="topImage" />
           {state.errors.topImage && (
             <p className="text-sm text-red-500">
@@ -54,12 +58,14 @@ export default function CreatePage() {
         </div>
 
         <div>
-          <Label htmlFor="content">内容（Markdown）</Label>
+          <Label htmlFor="content" className="py-2">
+            内容（Markdown）
+          </Label>
           <TextareaAutosize
             id="content"
             name="content"
             placeholder="内容を入力してください"
-            className="w-full border p-2"
+            className="w-full border p-2 rounded-md"
             minRows={8}
             value={content}
             onChange={handleContentChange}
@@ -74,7 +80,11 @@ export default function CreatePage() {
           文字数：{contentLength}
         </div>
         <div>
-          <Button type="button" onClick={() => setPreview(!preview)}>
+          <Button
+            type="button"
+            onClick={() => setPreview(!preview)}
+            className="text-white px-4 py-2 rounded"
+          >
             {preview ? "プレビューを閉じる" : "プレビューを表示"}
           </Button>
         </div>
@@ -90,10 +100,7 @@ export default function CreatePage() {
             </ReactMarkdown>
           </div>
         )}
-        <Button
-          type="submit"
-          className="bgblue-500 text-white px-4 py-2 rounded"
-        >
+        <Button type="submit" className="text-white px-4 py-2 rounded">
           投稿する
         </Button>
       </form>

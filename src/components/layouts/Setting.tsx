@@ -16,7 +16,10 @@ export default function Setting({ session }: { session: Session }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="font-medium">
+        <Button
+          variant="ghost"
+          className="font-medium text-white hover:bg-gray-700 hover:text-white rounded-md px-4 py-2 transition-colors duration-200"
+        >
           {session.user?.name}
         </Button>
       </DropdownMenuTrigger>

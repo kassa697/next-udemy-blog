@@ -31,6 +31,8 @@ export default function EditPostForm({ post }: EditPostFormProps) {
   const [published, setPublished] = useState(post.published);
   const [imagePreview, setImagePreview] = useState(post.topImage);
 
+  const hasNoImage = !post.topImage || post.topImage.includes("undefined");
+
   const [state, formAction] = useActionState(updatePost, {
     success: false,
     errors: {},
@@ -66,7 +68,9 @@ export default function EditPostForm({ post }: EditPostFormProps) {
       <h1 className="text-2xl font-bold mb-4">新規記事投稿（Markdown対応）</h1>
       <form action={formAction} className="space-y-4">
         <div>
-          <Label htmlFor="title">タイトル</Label>
+          <Label htmlFor="title" className="py-2">
+            タイトル
+          </Label>
           <Input
             type="text"
             id="title"
@@ -82,7 +86,9 @@ export default function EditPostForm({ post }: EditPostFormProps) {
           )}
         </div>
         <div>
-          <Label htmlFor="topImage">トップ画像</Label>
+          <Label htmlFor="topImage" className="py-2">
+            トップ画像
+          </Label>
           <Input
             type="file"
             id="topImage"
@@ -90,18 +96,24 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             name="topImage"
             onChange={handleImageChange}
           />
-          {imagePreview && (
-            <div className="mt-2">
-              <Image
-                src={imagePreview}
-                alt={post.title}
-                width={0}
-                height={0}
-                sizes="200px"
-                className="w-[200px]"
-                priority
-              />
+          {hasNoImage ? (
+            <div className="text-gray-400 text-lg h-40 text-center flex items-center justify-center bg-gray-200 mt-2 rounded-2xl">
+              サムネなし
             </div>
+          ) : (
+            imagePreview && (
+              <div className="mt-2">
+                <Image
+                  src={imagePreview}
+                  alt={post.title}
+                  width={0}
+                  height={0}
+                  sizes="200px"
+                  className="w-[200px]"
+                  priority
+                />
+              </div>
+            )
           )}
           {state.errors.topImage && (
             <p className="text-sm text-red-500">
@@ -111,7 +123,9 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         </div>
 
         <div>
-          <Label htmlFor="content">内容（Markdown）</Label>
+          <Label htmlFor="content" className="py-2">
+            内容（Markdown）
+          </Label>
           <TextareaAutosize
             id="content"
             name="content"

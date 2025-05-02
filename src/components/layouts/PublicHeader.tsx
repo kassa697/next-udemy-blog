@@ -12,12 +12,15 @@ import SearchBox from "../post/SearchBox";
 export default function PublicHeader() {
   return (
     <div>
-      <header className="border-b bg-blue-200">
+      <header className="border-b bg-gray-800">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuLink href="/" className="font-bold text-xl">
+                <NavigationMenuLink
+                  href="/"
+                  className="font-bold text-xl text-white"
+                >
                   Blog
                 </NavigationMenuLink>
               </NavigationMenuItem>
