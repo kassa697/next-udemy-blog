@@ -18,8 +18,6 @@ export default async function PostPage({
     ? ((await searchPosts(query)) as Post[])
     : ((await getPosts()) as Post[]);
 
-  console.log(posts);
-
   return (
     <>
       <div className="container mx-auto px-4 py-8">
