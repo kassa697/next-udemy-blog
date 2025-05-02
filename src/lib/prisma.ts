@@ -1,7 +1,9 @@
-// import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 // import { PrismaClient } from "./src/generated/prisma";
 
-import { PrismaClient } from "@/generated/prisma";
+// import { PrismaClient } from "@/generated/prisma/client";
+
+// import { PrismaClient } from "@/generated/prisma";
 
 /**
  * Next.jsのHot Reload（開発時の高速リロード）でPrismaClientのインスタンスが
