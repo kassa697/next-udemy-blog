@@ -1,4 +1,5 @@
 // ファイルシステム操作（Promiseベース）とパス操作のモジュールをインポート
+import { supabase } from "@/lib/supabase";
 import { writeFile } from "fs/promises"; // Node.jsのファイル書き込み（非同期/Promise版）
 import path from "path"; // クロスプラットフォームなパス操作
 
@@ -8,6 +9,15 @@ import path from "path"; // クロスプラットフォームなパス操作
  * @returns 成功時: 公開URL（例: "/images/123456789-filename.jpg"）、失敗時: null
  */
 export async function saveImage(file: File): Promise<string | null> {
+  const useSupabase = process.env.NEXT_PUBLIC_USE_SUPABASE_STORAGE === "true";
+  if (useSupabase) {
+    return await saveImageToSupabase(file);
+  } else {
+    return await saveImageToLocal(file);
+  }
+}
+
+export async function saveImageToLocal(file: File): Promise<string | null> {
   // FileオブジェクトをArrayBufferに変換し、Bufferに変換（Node.jsで扱える形式）
   const buffer = Buffer.from(await file.arrayBuffer());
 
@@ -31,4 +41,21 @@ export async function saveImage(file: File): Promise<string | null> {
     console.error("Error saving image:", error);
     return null; // 失敗時はnullを返す
   }
+}
+async function saveImageToSupabase(file: File): Promise<string | null> {
+  const fileName = `${Date.now()}_${file.name}`;
+  const { error } = await supabase.storage
+    .from("udemy-next-blog-bkt")
+    .upload(fileName, file, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+  if (error) {
+    console.error("Upload error:", error.message);
+    return null;
+  }
+  const { data: publicUrlData } = supabase.storage
+    .from("udemy-next-blog-bkt")
+    .getPublicUrl(fileName);
+  return publicUrlData.publicUrl;
 }

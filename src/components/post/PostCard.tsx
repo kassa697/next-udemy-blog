@@ -2,25 +2,30 @@ import { PostCardProps } from "@/types/post";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
-import { ja } from "date-fns/locale"; // 日本語ロケールをインポート
+import { ja } from "date-fns/locale";
 import Image from "next/image";
+
 export default function PostCard({ post }: PostCardProps) {
+  // topImageがundefinedを含むか、空/未定義の場合をチェック
+  const hasNoImage = !post.topImage || post.topImage.includes("undefined");
+
   return (
     <Card className="hover:shadow-lg transition-shadow duration-300">
       <Link href={`/posts/${post.id}`}>
-        {post.topImage && (
-          <div className="relative w-full h-48">
+        <div className="relative w-full h-48 bg-gray-100 flex items-center justify-center rounded-t-md overflow-hidden">
+          {hasNoImage ? (
+            <div className="text-gray-400 text-sm">サムネなし</div>
+          ) : (
             <Image
-              src={post.topImage}
+              src={post.topImage as string}
               alt={post.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover rounded-t-md"
+              className="object-cover"
               priority
             />
-          </div>
-        )}
-        {/* line-clamp-2 -> はみ出したテキストを…と表示 */}
+          )}
+        </div>
         <CardHeader className="line-clamp-2 py-3">
           <CardTitle>{post.title}</CardTitle>
         </CardHeader>
@@ -32,8 +37,8 @@ export default function PostCard({ post }: PostCardProps) {
             <span>{post.author.name}</span>
             <time>
               {formatDistanceToNow(new Date(post.createdAt), {
-                addSuffix: true, // 例: "3 days ago"
-                locale: ja, // 日本語にローカライズ
+                addSuffix: true,
+                locale: ja,
               })}
             </time>
           </div>

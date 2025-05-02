@@ -7,10 +7,12 @@ import { ja } from "date-fns/locale";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
-import "highlight.js/styles/github.css"; // コードハイライト用のスタイル
+import "highlight.js/styles/github.css";
+
 type Params = {
   params: Promise<{ id: string }>;
 };
+
 export default async function PostPage({ params }: Params) {
   const { id } = await params;
   const post = await getPost(id);
@@ -18,21 +20,27 @@ export default async function PostPage({ params }: Params) {
   if (!post) {
     notFound();
   }
+
+  // topImageがundefinedを含むか、空/未定義の場合をチェック
+  const hasNoImage = !post.topImage || post.topImage.includes("undefined");
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Card className="max-w-3xl mx-auto">
-        {post.topImage && (
-          <div className="relative w-full h-64 lg:h-96">
+        <div className="relative w-full h-64 lg:h-96 bg-gray-100 flex items-center justify-center rounded-t-md overflow-hidden">
+          {hasNoImage ? (
+            <div className="text-gray-400 text-lg">サムネなし</div>
+          ) : (
             <Image
-              src={post.topImage}
+              src={post.topImage as string}
               alt={post.title}
               fill
               sizes="100vw"
-              className="object-cover rounded-t-md"
+              className="object-cover"
               priority
             />
-          </div>
-        )}
+          )}
+        </div>
         <CardHeader>
           <div className="flex justify-between items-center mb-4">
             <p className="text-sm text-gray-500">投稿者：{post.author.name}</p>
