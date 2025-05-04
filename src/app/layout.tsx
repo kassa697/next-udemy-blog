@@ -1,4 +1,5 @@
 import "./globals.css";
+import Footer from "@/components/Footer"; // Footerコンポーネントをインポート
 
 export default function RootLayout({
   children,
@@ -7,7 +8,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body>{children}</body>
+      <body className="flex flex-col min-h-screen">
+        {" "}
+        {/* 追加 */}
+        {children}
+        <Footer /> {/* 追加 */}
+      </body>
     </html>
   );
 }
